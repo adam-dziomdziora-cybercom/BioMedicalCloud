@@ -53,4 +53,4 @@ jobs:
           app-name: "BioMedicalCloudFE"
           slot-name: "production"
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_df8cc8215a234fffb0a0fff91df5287c }}
-          package: ./dist/bio-medical-cloud
+          package: .
