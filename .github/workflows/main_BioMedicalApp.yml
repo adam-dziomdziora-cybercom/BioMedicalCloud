@@ -50,7 +50,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "BioMedicalCloudFE"
+          app-name: "BioMedicalApp"
           slot-name: "production"
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_83cea9d0d3f74fabbda5abf3d74070ff }}
           package: .
