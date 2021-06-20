@@ -1,5 +1,5 @@
 # PHASE BUILD
-FROM node:14 as build-step
+FROM node:14-alpine as build-step
 WORKDIR /app
 EXPOSE 80
 
@@ -8,6 +8,7 @@ RUN npm install -g @angular/cli
 RUN npm install
 
 COPY . /app
+RUN npm run build
 CMD npm run build
 
 #PHASE SERVE
