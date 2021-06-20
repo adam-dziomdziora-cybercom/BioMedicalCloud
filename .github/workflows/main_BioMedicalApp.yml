@@ -67,6 +67,6 @@ jobs:
         login-server: biomedicalapp.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
+      run: |
         docker build . -t biomedicalapp.azurecr.io/myapp:${{ github.sha }}
         docker push biomedicalapp.azurecr.io/myapp:${{ github.sha }}     
