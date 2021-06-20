@@ -61,8 +61,8 @@ jobs:
     steps:
       - name: Build the Container image
         id: bci
-        uses: actions/checkout@v2
-        uses: azure/docker-login@v1
+      - uses: actions/checkout@v2
+      - uses: azure/docker-login@v1
         with:
           login-server: biomedicalapp.azurecr.io
           username: ${{ secrets.REGISTRY_USERNAME }}
