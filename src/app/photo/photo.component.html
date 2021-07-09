@@ -1,10 +1,12 @@
-
-<h1>adam</h1><div class="snap-container">
-  <button class="btn btn-primary" *ngIf="!isCaptured" (click)="capture()">
-    Snap Photo
-  </button>
+<div>
+  <button class="btn btn-primary" (click)="capture()">Snap Photo</button>
 </div>
-<h2>dom</h2>
+
+<div>
+  <input id="preview" type="file" (change)="previewImage($event)" />
+  Upload Photo From Disk
+</div>
+
 <div class="video-container">
   <video
     [class.show]="!isCaptured"
@@ -24,4 +26,3 @@
     [height]="height"
   ></canvas>
 </div>
-
