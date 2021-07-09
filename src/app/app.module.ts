@@ -27,6 +27,7 @@ import {
 } from '@azure/msal-angular';
 import { DetailComponent } from './detail/detail.component';
 import { LogoutComponent } from './logout/logout.component';
+import { PhotoModule } from './photo/photo.module';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1
   || window.navigator.userAgent.indexOf('Trident/') > -1; // Remove this line to use Angular Universal
@@ -91,7 +92,8 @@ export const msalGuardConfigFactory = (): MsalGuardConfiguration => ({
     MatListModule,
     MatMenuModule,
     HttpClientModule,
-    MsalModule
+    MsalModule,
+    PhotoModule
   ],
   providers: [
     {

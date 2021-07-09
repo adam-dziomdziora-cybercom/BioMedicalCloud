@@ -1,0 +1,27 @@
+
+<h1>adam</h1><div class="snap-container">
+  <button class="btn btn-primary" *ngIf="!isCaptured" (click)="capture()">
+    Snap Photo
+  </button>
+</div>
+<h2>dom</h2>
+<div class="video-container">
+  <video
+    [class.show]="!isCaptured"
+    [class.hide]="isCaptured"
+    #video
+    id="video"
+    [width]="width"
+    [height]="height"
+    autoplay
+  ></video>
+  <canvas
+    [class.show]="isCaptured"
+    [class.hide]="!isCaptured"
+    #canvas
+    id="canvas"
+    [width]="width"
+    [height]="height"
+  ></canvas>
+</div>
+
