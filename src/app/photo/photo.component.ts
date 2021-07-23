@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
+import {
+  BlobServiceClient,
+  BlockBlobClient,
+  ContainerClient,
+} from '@azure/storage-blob';
 import FileSaver from 'file-saver';
 
 interface ISasReponse {
@@ -84,6 +88,26 @@ export class PhotoComponent implements AfterViewInit {
     this.isCaptured = true;
   }
 
+  async previewImage(event: any) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      console.log('csv content', e.target.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    const heheblob: Blob = event.target.files[0];
+    const blobName = 'photo' + new Date().getTime();
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    const uploadBlobResponse = await blockBlobClient.upload(
+      heheblob,
+      heheblob.size
+    );
+    console.log(
+      `Uploaded block blob ${blobName} successfully`,
+      uploadBlobResponse.requestId
+    );
+    await this.handleUploadSuccess(blockBlobClient);
+  }
+
   async drawImageToCanvas(image: any) {
     this.canvas.nativeElement
       .getContext('2d')
@@ -103,9 +127,16 @@ export class PhotoComponent implements AfterViewInit {
           uploadBlobResponse.requestId
         );
 
-        await this.downloadUploadedFromAzure();
+        await this.handleUploadSuccess(blockBlobClient);
       }
     });
+  }
+
+  private async handleUploadSuccess(blockBlobClient: BlockBlobClient) {
+    this.latestUploadedUrl = blockBlobClient.url;
+    if (!this.isMobile) {
+      await this.downloadUploadedFromAzure();
+    }
   }
 
   public get isMobile(): boolean {
@@ -122,29 +153,6 @@ export class PhotoComponent implements AfterViewInit {
     return toMatch.some((toMatchItem) =>
       navigator.userAgent.match(toMatchItem)
     );
-  }
-
-  async previewImage(event: any) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      console.log('csv content', e.target.result);
-    };
-    reader.readAsDataURL(event.target.files[0]);
-    const heheblob: Blob = event.target.files[0];
-    const blobName = 'photo' + new Date().getTime();
-    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
-    const uploadBlobResponse = await blockBlobClient.upload(
-      heheblob,
-      heheblob.size
-    );
-    console.log(
-      `Uploaded block blob ${blobName} successfully`,
-      uploadBlobResponse.requestId
-    );
-    this.latestUploadedUrl = blockBlobClient.url;
-    if (!this.isMobile) {
-      await this.downloadUploadedFromAzure();
-    }
   }
 
   private async downloadUploadedFromAzure() {
