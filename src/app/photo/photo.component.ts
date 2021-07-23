@@ -95,7 +95,7 @@ export class PhotoComponent implements AfterViewInit {
     };
     reader.readAsDataURL(event.target.files[0]);
     const heheblob: Blob = event.target.files[0];
-    const blobName = 'photo' + new Date().getTime();
+    const blobName = 'photo' + new Date().getTime() + '.jpg';
     const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
     const uploadBlobResponse = await blockBlobClient.upload(
       heheblob,
