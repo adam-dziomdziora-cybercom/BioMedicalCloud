@@ -6,6 +6,14 @@
   <input id="preview" type="file" (change)="previewImage($event)" />
   Upload Photo From Disk
 </div>
+<h5>{{sasToken}}</h5>
+<h3>error? {{error}}</h3>
+<h4>isMobile? {{isMobile}}</h4>
+<div>
+  Navigate to lates uploaded photo
+  <button class="btn btn-secondary" (click)="goToLink()">page link</button>
+  {{latestUploadedUrl}}
+</div>
 
 <div class="video-container">
   <video
