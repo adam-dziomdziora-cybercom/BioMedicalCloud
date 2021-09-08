@@ -52,12 +52,15 @@ export class PhotoComponent implements AfterViewInit {
   private mediaStream: MediaStream | undefined;
   private peerIdentity: string | undefined;
   private captures: string[] = [];
-  private containerName = 'images';
-  private url = 'https://mysuperblob.blob.core.windows.net/';
+  private functionId = 'sastokenfunction2137';
+  private functionName = 'SasTokenFunction';
+  private accountName = 'mlstorageaccount2137';
+  private containerName = 'mlblobcontainer2137';
+  private url = `https://${this.accountName}.blob.core.windows.net/`;
   private blobServiceClient = new BlobServiceClient(this.url);
   private containerClient!: ContainerClient;
   private sasUrl =
-    'https://biomedicalappsastoken.azurewebsites.net/api/HttpTriggerGetSasToken';
+    `https://${this.functionId}.azurewebsites.net/api/${this.functionName}`;
 
   constructor(private httpClient: HttpClient) {}
 
